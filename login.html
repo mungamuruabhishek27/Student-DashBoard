@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Student Dashboard</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to bottom, #161a2d 50%, #f0f4ff 50%);
+        }
+
+        .card-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+            max-width: 1100px;
+            width: 100%;
+            padding: 0px;
+            margin-top: -30px; /* Adjust for overlapping gradient */
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 0px;
+            /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); */
+            flex: 1;
+            margin-right: 0px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .card:last-child {
+            margin-right: 0;
+        }
+
+        .login-card {
+            background-color: #f0f4ff;
+            padding: 30px;
+        }
+
+        .login-card h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+
+        .login-card form {
+            text-align: center;
+            width: 100%; /* Ensure form fills the card */
+            max-width: 300px; /* Limit form width */
+        }
+
+        .login-card input {
+            display: block;
+            width: 100%;
+            margin-bottom: 20px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .login-card button {
+            width: 100%; /* Make button full width */
+            padding: 12px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-card button:hover {
+            background-color: #0056b3;
+        }
+
+        .login-card .login-image {
+            width: 80px; /* Adjust image size */
+            height: 80px;
+            margin-bottom: 20px; /* Spacing below image */
+        }
+
+        .info-card {
+            background-color: #161a2d;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            padding: 40px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); */
+            color: #fff;
+        }
+
+        .info-card h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .info-card h3 {
+            margin-bottom: 10px;
+        }
+
+        .info-card p {
+            line-height: 1.6;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="card-container">
+        <div class="card info-card">
+            <div class="info-content">
+                <h1>Welcome to Student Dashboard</h1>
+                <p>
+                    The Student Dashboard is a comprehensive platform designed to enhance the storage of student details such as projects, certificates, fee receipts, etc.
+                </p>
+            </div>
+        </div>
+        <div class="card login-card">
+            <img src="https://img.freepik.com/free-photo/3d-render-secure-login-password-illustration_107791-16640.jpg?t=st=1719590058~exp=1719593658~hmac=f93f7c55aa20ae1c9061a0ccda25bde19674fced075484c903043e45cf60d884&w=996" alt="Login Icon" class="login-image">
+            <h2>Login</h2>
+            <form id="loginForm" onsubmit="return false;">
+                <div id="phoneForm">
+                    <input type="tel" id="phoneNumber" placeholder="Enter your phone number" pattern="[0-9]{10}" required>
+                    <button onclick="sendOTP()">Send OTP</button>
+                </div>
+                <div id="otpForm" style="display:none;">
+                    <input type="text" id="otp" placeholder="Enter OTP" required>
+                    <button onclick="verifyOTP()">Verify OTP</button>
+                </div>
+                <div id="errorMessage" class="error-message"></div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const fixedOTP = '123456'; // Set your fixed OTP here
+
+        function sendOTP() {
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            if (phoneNumber.length === 10 && /^\d+$/.test(phoneNumber)) {
+                alert(`OTP sent to ${phoneNumber}`);
+                document.getElementById('phoneForm').style.display = 'none';
+                document.getElementById('otpForm').style.display = 'block';
+                document.getElementById('errorMessage').textContent = '';
+            } else {
+                document.getElementById('errorMessage').textContent = 'Please enter a valid 10-digit phone number';
+            }
+        }
+
+        function verifyOTP() {
+            const enteredOTP = document.getElementById('otp').value;
+            if (enteredOTP === fixedOTP) {
+                alert('OTP verified successfully');
+                window.location.href = 'index.html'; // Redirect to index.html on successful OTP verification
+            } else {
+                document.getElementById('errorMessage').textContent = 'Invalid OTP';
+            }
+        }
+    </script>
+</body>
+</html>
